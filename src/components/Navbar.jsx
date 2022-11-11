@@ -5,9 +5,9 @@ import logo from "../images/logo.svg";
 
 const NavbarContainer = styled.div`
   padding: 30px 15px;
-  max-width: 100%;
   .wrapper {
     width: 800px;
+    max-width: 100%;
     margin: 0 auto;
     border: 1px solid ${(props) => props.theme.headerBorder};
     border-radius: 5px;
@@ -32,6 +32,24 @@ const NavbarContainer = styled.div`
     .score {
       font-size: 50px;
       font-weight: bold;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .wrapper {
+      border-width: 2px;
+      align-items: center;
+      .logo {
+        height: 60px;
+      }
+      .score-wrapper {
+        .label {
+          font-size: 12px;
+          font-weight: bold;
+        }
+        .score {
+          font-size: 40px;
+        }
+      }
     }
   }
 `;

@@ -58,14 +58,17 @@ const RulesContainer = styled.div`
 
 function Rules() {
   const { setRulesIsOpen } = useGlobalContext();
+  const close = () => {
+    setRulesIsOpen(false)
+  }
   return (
     <>
       <RulesContainer>
-        <div className="overlay" onClick={() => setRulesIsOpen(false)}></div>
+        <div className="overlay" onClick={close}></div>
         <div className="wrapper">
           <header>
             <h2>rules</h2>
-            <button type="button">
+            <button type="button" onClick={close}>
               <Close />
             </button>
           </header>

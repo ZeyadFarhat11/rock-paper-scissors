@@ -22,6 +22,10 @@ const Button = styled.button`
     color: #000;
     background-color: #fff;
   }
+  @media screen and (max-width: 768px) {
+    right: 50%;
+    transform: translateX(50%);
+  }
 `;
 
 function RulesButton() {

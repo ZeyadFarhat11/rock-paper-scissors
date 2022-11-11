@@ -55,6 +55,9 @@ const Container = styled.div`
     margin-top: 10vh;
     align-items: stretch;
     .choice-wrapper {
+      .choice {
+        position: relative;
+      }
       h3 {
         color: #fff;
         font-size: 25px;
@@ -63,14 +66,29 @@ const Container = styled.div`
         text-align: center;
         margin-bottom: 50px;
       }
-      .choice {
-      }
       .placeholder {
         width: 200px;
         height: 200px;
         border-radius: 50%;
         background-color: rgba(0, 0, 0, 0.4);
         animation: ${placholderAnimation} 1s infinite;
+      }
+      .choice::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 50%;
+        box-shadow: none;
+      }
+      .choice.win::before {
+        transition: .3s;
+        box-shadow: 
+        0 0 0 40px rgb(255 255 255 / 6%),
+        0 0 0 80px rgb(255 255 255 / 4%),
+        0 0 0 130px rgb(255 255 255 / 2%);
       }
     }
     .result {
@@ -147,7 +165,7 @@ function ResultArea() {
       <div className="wrapper">
         <div className="choice-wrapper">
           <h3>you picked</h3>
-          <Choice {...choice} />
+          <Choice {...choice} className={status==='win' ? 'win' : ''} />
         </div>
         {!!status && (
           <div className="result">
@@ -162,7 +180,7 @@ function ResultArea() {
         <div className="choice-wrapper">
           <h3>the house picked</h3>
           {houseChoice ? (
-            <Choice {...houseChoice} />
+            <Choice {...houseChoice} className={status==='lose' ? 'win' : ''}/>
           ) : (
             <div className="placeholder"></div>
           )}

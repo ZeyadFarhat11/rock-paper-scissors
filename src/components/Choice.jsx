@@ -28,14 +28,26 @@ const Container = styled.div`
   img {
     width: 70px;
   }
+  @media screen and (max-width: 992px) {
+    width: 190px;
+    height: 190px;
+  }
+  @media screen and (max-width: 768px) {
+    width: 130px;
+    height: 130px;
+    padding: 20px;
+    img {
+      width: 50px;
+    }
+  }
 `;
 
-function Choice({ color, shadowColor, name, img, hover }) {
+function Choice({ color, shadowColor, name, img, hover, className }) {
   const { setChoice } = useGlobalContext();
 
   return (
     <Container
-      className="choice"
+      className={className + ' choice'}
       style={{
         backgroundColor: color,
         boxShadow: `0 10px ${shadowColor}, 0 13px rgba(0, 0, 0, 0.3)`,

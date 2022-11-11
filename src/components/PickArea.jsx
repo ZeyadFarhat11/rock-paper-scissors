@@ -20,6 +20,13 @@ const Container = styled.div`
       margin: 0 auto;
     }
   }
+  @media screen and (max-width: 768px) {
+    .wrapper {
+      margin-top: 100px;
+      background-size: 200px;
+      gap: 25px;
+    }
+  }
 `;
 
 function PickArea() {
