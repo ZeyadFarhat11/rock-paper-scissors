@@ -47,16 +47,21 @@ const placholderAnimation = keyframes`
 `;
 
 const Container = styled.div`
+  height: calc(100vh - 170px);
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
   .wrapper {
     width: fit-content;
     margin: 0 auto;
     display: flex;
     gap: 100px;
-    margin-top: 10vh;
     align-items: stretch;
     .choice-wrapper {
       .choice {
         position: relative;
+        margin: 0 auto;
       }
       h3 {
         color: #fff;
@@ -74,7 +79,7 @@ const Container = styled.div`
         animation: ${placholderAnimation} 1s infinite;
       }
       .choice::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         bottom: 0;
@@ -84,48 +89,84 @@ const Container = styled.div`
         box-shadow: none;
       }
       .choice.win::before {
-        transition: .3s;
-        box-shadow: 
-        0 0 0 40px rgb(255 255 255 / 6%),
-        0 0 0 80px rgb(255 255 255 / 4%),
-        0 0 0 130px rgb(255 255 255 / 2%);
+        transition: 0.3s;
+        box-shadow: 0 0 0 40px rgb(255 255 255 / 6%),
+          0 0 0 80px rgb(255 255 255 / 4%), 0 0 0 130px rgb(255 255 255 / 2%);
       }
     }
-    .result {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      h2 {
-        color: #fff;
-        font-size: 45px;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        text-align: center;
-        &.win {
-          color: #28a745;
-        }
-        &.lose {
-          color: #dc3545;
-        }
-        &.draw {
-          color: #ffc107;
-        }
+  }
+  .result {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    h2 {
+      color: #fff;
+      font-size: 45px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-align: center;
+      &.win {
+        color: #28a745;
       }
-      button {
-        background-color: #fff;
-        border-radius: 5px;
-        font-size: 16px;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        padding: 10px;
-        width: 200px;
-        border: none;
-        outline: none;
-        margin-top: 30px;
-        cursor: pointer;
-        font-weight: bold;
-        font-family: inherit;
-        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+      &.lose {
+        color: #dc3545;
+      }
+      &.draw {
+        color: #ffc107;
+      }
+    }
+    button {
+      background-color: #fff;
+      border-radius: 5px;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 10px;
+      width: 200px;
+      border: none;
+      outline: none;
+      margin-top: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: inherit;
+      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    }
+  }
+  .result.mobile {
+    height: 100px;
+    h2 {
+      font-size: 35px;
+    }
+    button {
+      width: 150px;
+      margin: 0 auto;
+      margin-top: 15px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .wrapper {
+      padding: 0 15px;
+      width: 100%;
+      gap: 20px;
+      justify-content: space-between;
+      .choice-wrapper {
+        display: flex;
+        flex-direction: column-reverse;
+        h3 {
+          margin-top: 35px;
+          font-size: 14px;
+          white-space: nowrap;
+        }
+        .placeholder {
+          width: 130px;
+          height: 130px;
+        }
+        .choice.win::before {
+          transition: 0.3s;
+          box-shadow: 0 0 0 20px rgb(255 255 255 / 6%),
+            0 0 0 50px rgb(255 255 255 / 4%), 0 0 0 80px rgb(255 255 255 / 2%);
+        }
       }
     }
   }
@@ -137,6 +178,7 @@ function ResultArea() {
   const [status, setStatus] = useState(null);
 
   useEffect(() => {
+    setHouseChoice(null);
     setTimeout(() => {
       // Pick Random Choice
       const randomChoice = choices[Math.floor(Math.random() * choices.length)];
@@ -160,14 +202,16 @@ function ResultArea() {
     setChoice(null);
   };
 
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
   return (
     <Container>
       <div className="wrapper">
         <div className="choice-wrapper">
           <h3>you picked</h3>
-          <Choice {...choice} className={status==='win' ? 'win' : ''} />
+          <Choice {...choice} className={status === "win" ? "win" : ""} />
         </div>
-        {!!status && (
+        {!!status && !isMobile && (
           <div className="result">
             <h2 className={status}>
               {status === "draw" ? "draw" : `you ${status}`}
@@ -180,12 +224,25 @@ function ResultArea() {
         <div className="choice-wrapper">
           <h3>the house picked</h3>
           {houseChoice ? (
-            <Choice {...houseChoice} className={status==='lose' ? 'win' : ''}/>
+            <Choice
+              {...houseChoice}
+              className={status === "lose" ? "win" : ""}
+            />
           ) : (
             <div className="placeholder"></div>
           )}
         </div>
       </div>
+      {!!status && isMobile && (
+        <div className="result mobile">
+          <h2 className={status}>
+            {status === "draw" ? "draw" : `you ${status}`}
+          </h2>
+          <button type="button" onClick={playAgain}>
+            play again
+          </button>
+        </div>
+      )}
     </Container>
   );
 }

@@ -13,6 +13,7 @@ const RulesContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 50;
   .overlay {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 5;
@@ -29,6 +30,7 @@ const RulesContainer = styled.div`
     background-color: #fff;
     padding: 40px;
     border-radius: 10px;
+    max-width: calc(100vw - 60px);
     header {
       display: flex;
       align-items: center;
@@ -52,6 +54,7 @@ const RulesContainer = styled.div`
     }
     img {
       margin-top: 50px;
+      max-width: 100%;
     }
   }
 `;
@@ -59,8 +62,8 @@ const RulesContainer = styled.div`
 function Rules() {
   const { setRulesIsOpen } = useGlobalContext();
   const close = () => {
-    setRulesIsOpen(false)
-  }
+    setRulesIsOpen(false);
+  };
   return (
     <>
       <RulesContainer>

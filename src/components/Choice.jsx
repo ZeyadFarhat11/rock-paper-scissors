@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { useGlobalContext } from "../context";
 
 const Container = styled.div`
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   padding: 30px;
   cursor: pointer;
@@ -26,7 +26,7 @@ const Container = styled.div`
     box-shadow: 0 7px inset hsl(228deg 22% 78%);
   }
   img {
-    width: 70px;
+    width: 65px;
   }
   @media screen and (max-width: 992px) {
     width: 190px;
@@ -35,7 +35,7 @@ const Container = styled.div`
   @media screen and (max-width: 768px) {
     width: 130px;
     height: 130px;
-    padding: 20px;
+    padding: 15px;
     img {
       width: 50px;
     }
@@ -47,20 +47,21 @@ function Choice({ color, shadowColor, name, img, hover, className }) {
 
   return (
     <Container
-      className={className + ' choice'}
+      className={className + " choice"}
       style={{
         backgroundColor: color,
-        boxShadow: `0 10px ${shadowColor}, 0 13px rgba(0, 0, 0, 0.3)`,
+        boxShadow: `0 8px ${shadowColor}, 0 11px rgba(0, 0, 0, 0.3)`,
       }}
       hover={hover}
-      onClick={() =>
+      onClick={() => {
+        if (!hover) return;
         setChoice({
           name,
           color,
           shadowColor,
           img,
-        })
-      }
+        });
+      }}
     >
       <div className="inner">
         <img src={img} alt={name} />

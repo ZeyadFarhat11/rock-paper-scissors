@@ -7,6 +7,9 @@ import triangle from "../images/bg-triangle.svg";
 import Choice from "./Choice";
 
 const Container = styled.div`
+  height: calc(100vh - 170px);
+  display: flex;
+  align-items: center;
   .wrapper {
     margin: 0 auto;
     width: fit-content;
@@ -22,7 +25,7 @@ const Container = styled.div`
   }
   @media screen and (max-width: 768px) {
     .wrapper {
-      margin-top: 100px;
+      /* margin-top: 100px; */
       background-size: 200px;
       gap: 25px;
     }

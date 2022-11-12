@@ -4,7 +4,9 @@ import { useGlobalContext } from "../context";
 import logo from "../images/logo.svg";
 
 const NavbarContainer = styled.div`
-  padding: 30px 15px;
+  padding: 0 15px;
+  padding-top: 30px;
+  height: 170px;
   .wrapper {
     width: 800px;
     max-width: 100%;
